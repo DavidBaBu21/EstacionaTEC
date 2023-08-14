@@ -1,27 +1,56 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
+//SENSORES INFRARROJOS
+#define S1 4
+#define S2 16
+#define S3 17
+#define S4 5
+#define S5 18
+
+//WIFI, ESP - MQTT
 WiFiClient espClient;
 PubSubClient client(espClient);
-const char* ssid = "Totalplay-2.4G-44a8";
+const char* ssid = "PonysITM";
 const char* password = "";
-const char* mqtt_server = "192.168.100.16";
-const char* mqtt_server2 = "127.0.0.1";
+const char* mqtt_server = "10.31.0.249";
+
+//VARIABLES LEÍDAS Y MSJ A NODE-RED
+char msg[16];
+int s1, s2, s3, s4, s5;
 
 void setup() {
+  //Iniciar conexión WiFi
   setup_wifi();
   delay(500);
+  //Conectarse con el broker
   client.setServer(mqtt_server, 1883);
   delay(1000);
+  //Iniciar pines
+  pinMode(S1, INPUT);
+  pinMode(S2, INPUT);
+  pinMode(S3, INPUT);
+  pinMode(S4, INPUT);
+  pinMode(S5, INPUT);
 }
 
 void loop() {
-  
+  //Verificar conexión con el broker
   if(!client.connected()){
     reconnect();
   }
   client.loop();
-  client.publish("canal", "1");
+
+  //Leer los sensores
+  s1 = digitalRead(S1);
+  s2 = digitalRead(S2);
+  s3 = digitalRead(S3);
+  s4 = digitalRead(S4);
+  s5 = digitalRead(S5);
+  
+  snprintf(msg,16,"%d,%d,%d,%d,%d",s1,s2,s3,s4,s5);
+  //snprintf(msg,16,"%d",s1);
+  client.publish("canal", msg);
   delay(3000);
 }
 
