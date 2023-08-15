@@ -1,0 +1,240 @@
+[
+    {
+        "id": "4bad4b24031f0ba8",
+        "type": "mqtt in",
+        "z": "f613fcf1d97aa016",
+        "name": "",
+        "topic": "canal",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "1170d19abc95018e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "20725ac9b651fae1",
+                "1170b16efe351b8c",
+                "b1fbf2ccacebf98d",
+                "9360cee26c126cd9",
+                "247931768c7fa36d"
+            ]
+        ]
+    },
+    {
+        "id": "8acccb1d58b53b5d",
+        "type": "debug",
+        "z": "f613fcf1d97aa016",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "69f4648ab9480cb4",
+        "type": "mqtt out",
+        "z": "f613fcf1d97aa016",
+        "name": "",
+        "topic": "canal",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1170d19abc95018e",
+        "x": 630,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "18ccae72ad60b767",
+        "type": "inject",
+        "z": "f613fcf1d97aa016",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "canal",
+        "payload": "Hola Mundo",
+        "payloadType": "str",
+        "x": 290,
+        "y": 180,
+        "wires": [
+            [
+                "69f4648ab9480cb4"
+            ]
+        ]
+    },
+    {
+        "id": "20725ac9b651fae1",
+        "type": "function",
+        "z": "f613fcf1d97aa016",
+        "name": "Sensor 1",
+        "func": "msg.payload=msg.payload.split(\",\")\nmsg.payload=msg.payload[0]\n\nif (msg.payload == '0')\n    msg.payload = 'Libre'\nelse\n    msg.payload = 'Ocupado'\n\nmsg.topic = \"UPDATE estacionamiento_n SET status = '\" + msg.payload + \"' WHERE ID = 'N1';\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "8acccb1d58b53b5d",
+                "6b12e4b331147a21"
+            ]
+        ]
+    },
+    {
+        "id": "1170b16efe351b8c",
+        "type": "function",
+        "z": "f613fcf1d97aa016",
+        "name": "Sensor 2",
+        "func": "msg.payload = msg.payload.split(\",\")\nmsg.payload = msg.payload[1]\n\nif (msg.payload == '0')\n    msg.payload = 'Libre'\nelse\n    msg.payload = 'Ocupado'\n\nmsg.topic = \"UPDATE estacionamiento_n SET status = '\" + msg.payload + \"' WHERE ID = 'N2';\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "8acccb1d58b53b5d",
+                "6b12e4b331147a21"
+            ]
+        ]
+    },
+    {
+        "id": "b1fbf2ccacebf98d",
+        "type": "function",
+        "z": "f613fcf1d97aa016",
+        "name": "Sensor 3",
+        "func": "msg.payload = msg.payload.split(\",\")\nmsg.payload = msg.payload[2]\n\nif (msg.payload == '0')\n    msg.payload = 'Libre'\nelse\n    msg.payload = 'Ocupado'\n\nmsg.topic = \"UPDATE estacionamiento_n SET status = '\" + msg.payload + \"' WHERE ID = 'N3';\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 420,
+        "wires": [
+            [
+                "8acccb1d58b53b5d",
+                "6b12e4b331147a21"
+            ]
+        ]
+    },
+    {
+        "id": "9360cee26c126cd9",
+        "type": "function",
+        "z": "f613fcf1d97aa016",
+        "name": "Sensor 4",
+        "func": "msg.payload = msg.payload.split(\",\")\nmsg.payload = msg.payload[3]\n\nif (msg.payload == '0')\n    msg.payload = 'Libre'\nelse\n    msg.payload = 'Ocupado'\n\nmsg.topic = \"UPDATE estacionamiento_n SET status = '\" + msg.payload + \"' WHERE ID = 'N4';\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 480,
+        "wires": [
+            [
+                "8acccb1d58b53b5d",
+                "6b12e4b331147a21"
+            ]
+        ]
+    },
+    {
+        "id": "247931768c7fa36d",
+        "type": "function",
+        "z": "f613fcf1d97aa016",
+        "name": "Sensor 5",
+        "func": "msg.payload = msg.payload.split(\",\")\nmsg.payload = msg.payload[4]\n\nif (msg.payload == '0')\n    msg.payload = 'Libre'\nelse\n    msg.payload = 'Ocupado'\n\nmsg.topic = \"UPDATE estacionamiento_n SET status = '\" + msg.payload + \"' WHERE ID = 'N5';\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 540,
+        "wires": [
+            [
+                "8acccb1d58b53b5d",
+                "6b12e4b331147a21"
+            ]
+        ]
+    },
+    {
+        "id": "6b12e4b331147a21",
+        "type": "mysql",
+        "z": "f613fcf1d97aa016",
+        "mydb": "8f41de037cc427ad",
+        "name": "",
+        "x": 900,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1170d19abc95018e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.0.104",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8f41de037cc427ad",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "pony_parking",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
